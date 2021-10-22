@@ -32,7 +32,8 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "common.h"
+#include "base.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -58,6 +59,14 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define KEY0_Pin GPIO_PIN_6
+#define KEY0_GPIO_Port GPIOF
+#define KEY1_Pin GPIO_PIN_7
+#define KEY1_GPIO_Port GPIOF
+#define LED0_Pin GPIO_PIN_13
+#define LED0_GPIO_Port GPIOG
+#define LED1_Pin GPIO_PIN_14
+#define LED1_GPIO_Port GPIOG
 /* USER CODE BEGIN Private defines */
 #define USART2 USART1
 /* USER CODE END Private defines */

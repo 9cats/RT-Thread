@@ -88,15 +88,16 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+  delay_init(168);
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  thread_sample();
   while (1)
   {
-  	break;
+    thread_sample();
+    break;
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
