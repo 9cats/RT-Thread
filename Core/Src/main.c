@@ -19,12 +19,15 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "i2c.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "console.h"
+
+#include "AT24CXX.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -87,9 +90,19 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART1_UART_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-  delay_init(168);
-
+  delay_init(168); //³õÊ¼»¯ delay º¯Êý
+  {
+  	u8 i;
+  	for(i=0;i<256;i++)
+  	{
+  		AT24CXX_WriteOneByte(i, i);
+  		if(AT24CXX_ReadOneByte(i) != i)
+  			LED1_ON;
+  	}
+  }
+  for(;;);
   /* USER CODE END 2 */
 
   /* Infinite loop */

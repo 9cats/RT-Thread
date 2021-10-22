@@ -67,6 +67,10 @@ void Error_Handler(void);
 #define LED0_GPIO_Port GPIOG
 #define LED1_Pin GPIO_PIN_14
 #define LED1_GPIO_Port GPIOG
+#define AT24CXX_SCL_Pin GPIO_PIN_8
+#define AT24CXX_SCL_GPIO_Port GPIOB
+#define AT24CXX_SDA_Pin GPIO_PIN_9
+#define AT24CXX_SDA_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 #define USART2 USART1
 /* USER CODE END Private defines */
