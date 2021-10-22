@@ -93,16 +93,14 @@ int main(void)
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
   delay_init(168); //³õÊ¼»¯ delay º¯Êý
+
+  DATA_INIT();
+
+  for(;;)
   {
-  	u8 i;
-  	for(i=0;i<256;i++)
-  	{
-  		AT24CXX_WriteOneByte(i, i);
-  		if(AT24CXX_ReadOneByte(i) != i)
-  			LED1_ON;
-  	}
+  	DATA_UPDATE();
+  	delay_ms(10);
   }
-  for(;;);
   /* USER CODE END 2 */
 
   /* Infinite loop */

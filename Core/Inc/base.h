@@ -23,6 +23,9 @@ void delay_ms  (uint16_t nms);
 void delay_us  (uint32_t nus);
 void delay_ns  (uint8_t  t);
 
+// 数据初始化(可保存)，和数据更新
+void DATA_INIT(void);
+void DATA_UPDATE(void);
 
 /*!
  *  \brief 数字转字符串

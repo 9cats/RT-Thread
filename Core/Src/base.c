@@ -1,5 +1,6 @@
 #include "main.h"
 #include "base.h"
+#include "AT24CXX.h"
 
 //us延时倍乘数
 static u8 fac_us = 0;
@@ -87,3 +88,65 @@ u8 KEY_Scan(u8 mode) {
 	return 0; // 按键按下
 }
 
+/*!
+ *  \brief  数据保存模块（掉电储存）
+ *  \note   用 AT24CXX 或者 W25QXX 来实现掉电储存
+ */
+
+//选择对应的储存方式
+// #define USE_W25QXX
+#define USE_AT24CXX
+
+//储存地址选择
+const u32 SAVE_ADDR = 0; //储存地址起始
+/*!
+ *  \brief  数据保存操作，0-写入 1-读出 2-写入
+ *  \param mode 操作模式
+ */
+void DATA_OP(u8 mode)
+{
+  u8 *VAR_ADDR   = (u8*)&Svar; //变量地址
+  u32 OP_ADDR = SAVE_ADDR ;    //FLASH储存首地址
+//  u8  data;                    //暂存数据
+  u16 size;                    //当前已经储存大小
+
+  for(size=0;size<sizeof(SVAR);size++,VAR_ADDR++,OP_ADDR++)
+  {
+		switch(mode)
+		{
+#ifdef USE_W25QXX
+			case 0:W25QXX_Write(VAR_ADDR,OP_ADDR,1);break;
+			case 1:W25QXX_Read (VAR_ADDR,OP_ADDR,1);break;
+			case 2:{
+				W25QXX_Read (&data,OP_ADDR,1);
+				if(data != *VAR_ADDR)
+				W25QXX_Write(VAR_ADDR,OP_ADDR,1);
+			}
+#endif
+#ifdef USE_AT24CXX
+			case 0:AT24CXX_Write(OP_ADDR, VAR_ADDR, 1);break;
+			case 1:AT24CXX_Read (OP_ADDR, VAR_ADDR, 1);break;
+			case 2:{
+				if(AT24CXX_ReadOneByte (OP_ADDR) != *VAR_ADDR)
+					 AT24CXX_WriteOneByte(OP_ADDR,    *VAR_ADDR);
+			}
+#endif
+		}
+  }
+}
+
+/*!
+ *  \brief 数据初始化，若按下KEY0则恢复默认
+ */
+void DATA_INIT() {
+  u8 key = KEY_Scan(0);
+  if(key == KEY0_PRES)  DATA_OP(0);
+  else                  DATA_OP(1);
+}
+
+/*!
+ *  \brief 数据更新
+ */
+void DATA_UPDATE() {
+    DATA_OP(2);
+}
