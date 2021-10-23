@@ -55,6 +55,7 @@
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32F4xx/Include"/>
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
 									<listOptionValue builtIn="false" value="../Drivers/AT24CXX"/>
+									<listOptionValue builtIn="false" value="../Drivers/W25QXX"/>
 									<listOptionValue builtIn="false" value="../RT-Thread"/>
 									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/RealThread_RTOS/include/"/>
 									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/RealThread_RTOS/bsp/_template/cubemx_config"/>

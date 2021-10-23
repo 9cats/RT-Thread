@@ -20,6 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "i2c.h"
+#include "spi.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -28,6 +29,7 @@
 #include "console.h"
 
 #include "AT24CXX.h"
+#include "W25QXX.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -91,10 +93,11 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   MX_I2C1_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-  delay_init(168); //初始化 delay 函数
-
-  DATA_INIT();
+  delay_init(168);	//delay 函数初始化
+  W25QXX_Init();		//W25QXX 初始化
+  DATA_INIT();			//可储存变量初始化
 
   for(;;)
   {

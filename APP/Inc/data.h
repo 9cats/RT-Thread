@@ -4,8 +4,8 @@
 
 typedef struct _SVAR
 {
-  float ADS_AMP;        //所有ADS倍数补偿
-  u16   ADS_OFFSET_ALL; //所有ADS的偏置补偿
+  float ADS_AMP;
+  u16   ADS_OFFSET_ALL;
 }SVAR;
 extern SVAR Svar;
 

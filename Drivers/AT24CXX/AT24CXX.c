@@ -10,7 +10,7 @@ u8 AT24CXX_ReadOneByte(u16 ReadAddr)
 {
 	u8 pBuffer;
 
-	HAL_I2C_Mem_Read(&at24cxx, Read_ADDR, ReadAddr, I2C_MEMADD_SIZE_8BIT, &pBuffer, 1, 1000);
+	HAL_I2C_Mem_Read(&at24cxx, Read_ADDR, ReadAddr, I2C_MEMADD_SIZE_8BIT, &pBuffer, 1, HAL_MAX_DELAY);
 
 	return pBuffer;
 }
@@ -25,8 +25,12 @@ HAL_StatusTypeDef AT24CXX_WriteOneByte(u16 WriteAddr,u8 DataToWrite)
 {
 	u8 pBuffer = DataToWrite;
 
-	if(HAL_I2C_Mem_Write(&at24cxx, Write_ADDR, WriteAddr, I2C_MEMADD_SIZE_8BIT, &DataToWrite, 1, 1000) == HAL_OK)
+	if(HAL_I2C_Mem_Write(&at24cxx, Write_ADDR, WriteAddr, I2C_MEMADD_SIZE_8BIT, &pBuffer, 1, HAL_MAX_DELAY) == HAL_OK)
+	{
+		//写入后要延迟5ms
+		delay_ms(5);
 		return HAL_OK;
+	}
 	else
 		return HAL_ERROR;
 }
@@ -40,7 +44,7 @@ HAL_StatusTypeDef AT24CXX_WriteOneByte(u16 WriteAddr,u8 DataToWrite)
  */
 HAL_StatusTypeDef AT24CXX_Read (u16 ReadAddr, u8* pBuffer, u16 NumToRead)
 {
-	if(HAL_I2C_Mem_Read(&at24cxx, Read_ADDR, ReadAddr, I2C_MEMADD_SIZE_8BIT, pBuffer, NumToRead, 1000) == HAL_OK)
+	if(HAL_I2C_Mem_Read(&at24cxx, Read_ADDR, ReadAddr, I2C_MEMADD_SIZE_8BIT, pBuffer, NumToRead, HAL_MAX_DELAY) == HAL_OK)
 		return HAL_OK;
 	else
 		return HAL_ERROR;
@@ -58,13 +62,14 @@ HAL_StatusTypeDef AT24CXX_Write(u16 WriteAddr, u8* pBuffer, u16 NumToWrite)
 	u16 i;
 	for(i=0; i<NumToWrite; i++)
 	{
-		if(HAL_I2C_Mem_Write(&at24cxx, Write_ADDR, WriteAddr+i, I2C_MEMADD_SIZE_8BIT, pBuffer, 1, 1000) == HAL_OK)
+		if(HAL_I2C_Mem_Write(&at24cxx, Write_ADDR, WriteAddr+i, I2C_MEMADD_SIZE_8BIT, pBuffer+i, 1, HAL_MAX_DELAY) == HAL_OK)
+		{
+			//写入后要延迟5ms
+			delay_ms(5);
 			continue;
+		}
 		else
 			return HAL_ERROR;
-
-		//写入后要延迟5ms
-		delay_ms(5);
 	}
 	return HAL_OK;
 }

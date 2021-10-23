@@ -1,12 +1,13 @@
 #include "main.h"
 #include "base.h"
+#include "string.h"
 #include "AT24CXX.h"
+#include "W25QXX.h"
 
 //us延时倍乘数
 static u8 fac_us = 0;
 //sprintf转换BUF
 u8 Str_Buf[200]= {0};
-
 
 /*!
  *  \brief  初始化延迟函数
@@ -17,7 +18,6 @@ void delay_init(u8 SYSCLK) {
 	HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK); //SysTick频率为HCLK
 	fac_us = SYSCLK;
 }
-
 
 /*!
  *  \brief  延迟ns
@@ -56,7 +56,6 @@ void delay_us(u32 nus) {
 	};
 }
 
-
 /*!
  *  \brief  延迟ms
  *  \param  t ms数
@@ -94,45 +93,42 @@ u8 KEY_Scan(u8 mode) {
  */
 
 //选择对应的储存方式
-// #define USE_W25QXX
-#define USE_AT24CXX
+#define USE_W25QXX
+//#define USE_AT24CXX
 
 //储存地址选择
-const u32 SAVE_ADDR = 0; //储存地址起始
+u32 SAVE_ADDR = 0x00; //储存地址起始
 /*!
  *  \brief  数据保存操作，0-写入 1-读出 2-写入
  *  \param mode 操作模式
  */
 void DATA_OP(u8 mode)
 {
-  u8 *VAR_ADDR   = (u8*)&Svar; //变量地址
-  u32 OP_ADDR = SAVE_ADDR ;    //FLASH储存首地址
-//  u8  data;                    //暂存数据
-  u16 size;                    //当前已经储存大小
+  SVAR ROMData;
 
-  for(size=0;size<sizeof(SVAR);size++,VAR_ADDR++,OP_ADDR++)
-  {
-		switch(mode)
-		{
 #ifdef USE_W25QXX
-			case 0:W25QXX_Write(VAR_ADDR,OP_ADDR,1);break;
-			case 1:W25QXX_Read (VAR_ADDR,OP_ADDR,1);break;
-			case 2:{
-				W25QXX_Read (&data,OP_ADDR,1);
-				if(data != *VAR_ADDR)
-				W25QXX_Write(VAR_ADDR,OP_ADDR,1);
-			}
-#endif
-#ifdef USE_AT24CXX
-			case 0:AT24CXX_Write(OP_ADDR, VAR_ADDR, 1);break;
-			case 1:AT24CXX_Read (OP_ADDR, VAR_ADDR, 1);break;
-			case 2:{
-				if(AT24CXX_ReadOneByte (OP_ADDR) != *VAR_ADDR)
-					 AT24CXX_WriteOneByte(OP_ADDR,    *VAR_ADDR);
-			}
-#endif
+	switch(mode) {
+		case 0:W25QXX_Write((u8*)&Svar   , SAVE_ADDR, sizeof(SVAR));break;
+		case 1:W25QXX_Read ((u8*)&Svar   , SAVE_ADDR, sizeof(SVAR));break;
+		case 2:{
+			W25QXX_Read ((u8*)&ROMData, SAVE_ADDR, sizeof(SVAR));
+			if(memcmp(&ROMData, &Svar, sizeof(SVAR)))
+				W25QXX_Write((u8*)&Svar     , SAVE_ADDR, sizeof(SVAR));
 		}
-  }
+	}
+#endif
+
+#ifdef USE_AT24CXX
+	switch(mode) {
+		case 0:AT24CXX_Write(SAVE_ADDR , (u8*)&Svar, sizeof(SVAR));break;
+		case 1:AT24CXX_Read (SAVE_ADDR , (u8*)&Svar, sizeof(SVAR));break;
+		case 2:{
+			AT24CXX_Read(SAVE_ADDR , (u8*)&ROMData, sizeof(SVAR));
+			if(memcmp(&ROMData, &Svar, sizeof(SVAR)))
+				AT24CXX_Write(SAVE_ADDR , (u8*)&Svar, sizeof(SVAR));
+		}
+	}
+#endif
 }
 
 /*!

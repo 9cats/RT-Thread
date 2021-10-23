@@ -18,6 +18,7 @@
 #define Write_ADDR 0xA0
 #define  Read_ADDR 0XA1
 
+/* 自行填写AT芯片型号以及对应的i2c */
 #define EE_TYPE AT24C02
 #define at24cxx hi2c1
 
