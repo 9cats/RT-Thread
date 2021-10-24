@@ -62,7 +62,13 @@ void delay_us(u32 nus) {
  *  \note   delay_init∫Û π”√
  */
 void delay_ms(u16 nms) {
-	delay_us(1000*nms);
+#define USE_RT_THREAD_Delay_MS
+
+#ifdef USE_RT_THREAD_Delay_MS
+	rt_thread_mdelay(nms);
+#else
+	delay_us(nms*1000);
+#endif
 }
 
 /*!

@@ -99,16 +99,19 @@ int main(void)
   delay_init(168);	//delay 函数初始化
   W25QXX_Init();		//W25QXX 初始化
   DATA_INIT();			//可储存变量初始化
+
+  extern void RT_Thread_Data_Init(void);
+  extern void RT_Thread_Threads_Init(void);
+  RT_Thread_Data_Init();
+  RT_Thread_Threads_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    thread_sample();
     break;
     /* USER CODE END WHILE */
-
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

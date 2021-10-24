@@ -81,7 +81,7 @@ void Error_Handler(void);
 #define AT24CXX_SDA_Pin GPIO_PIN_9
 #define AT24CXX_SDA_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
-
+#define _CCM __attribute__((section(".ccmram")))
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

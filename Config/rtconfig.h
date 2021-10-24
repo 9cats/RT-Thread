@@ -20,7 +20,7 @@
 
 // <o>the max length of object name<2-16>
 //  <i>Default: 8
-#define RT_NAME_MAX 8
+#define RT_NAME_MAX 16
 
 // <c1>Using RT-Thread components initialization
 //  <i>Using RT-Thread components initialization
@@ -34,7 +34,7 @@
 
 // <o>the size of main thread<1-4086>
 //  <i>Default: 512
-#define RT_MAIN_THREAD_STACK_SIZE 1024
+#define RT_MAIN_THREAD_STACK_SIZE 4096
 // </h>
 
 // <h>Debug Configuration
@@ -49,7 +49,7 @@
 
 // <c1>thread stack over flow detect
 //  <i> Diable Thread stack over flow detect
-//#define RT_USING_OVERFLOW_CHECK
+#define RT_USING_OVERFLOW_CHECK
 // </c>
 // </h>
 
