@@ -94,16 +94,11 @@ int main(void)
   MX_USART1_UART_Init();
   MX_I2C1_Init();
   MX_SPI1_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
   delay_init(168);	//delay 函数初始化
   W25QXX_Init();		//W25QXX 初始化
   DATA_INIT();			//可储存变量初始化
-
-  for(;;)
-  {
-  	DATA_UPDATE();
-  	delay_ms(10);
-  }
   /* USER CODE END 2 */
 
   /* Infinite loop */

@@ -81,7 +81,7 @@ void Error_Handler(void);
 #define AT24CXX_SDA_Pin GPIO_PIN_9
 #define AT24CXX_SDA_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
-#define USART2 USART1
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

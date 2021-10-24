@@ -18,7 +18,7 @@
  * Please modify RT_HEAP_SIZE if you enable RT_USING_HEAP
  * the RT_HEAP_SIZE max value = (sram size - ZI size), 1024 means 1024 bytes
  */
-#define RT_HEAP_SIZE (15*1024)
+#define RT_HEAP_SIZE (30*1024)
 static rt_uint8_t rt_heap[RT_HEAP_SIZE];
 
 RT_WEAK void *rt_heap_begin_get(void)
@@ -74,7 +74,7 @@ static UART_HandleTypeDef UartHandle;
 static int uart_init(void)
 {
     /* TODO: Please modify the UART port number according to your needs */
-    UartHandle.Instance = USART2;
+    UartHandle.Instance = USART3;
     UartHandle.Init.BaudRate = 115200;
     UartHandle.Init.WordLength = UART_WORDLENGTH_8B;
     UartHandle.Init.StopBits = UART_STOPBITS_1;
