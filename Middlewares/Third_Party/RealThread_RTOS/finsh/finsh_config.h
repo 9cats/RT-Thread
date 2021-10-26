@@ -23,7 +23,7 @@
 #define FINSH_USING_DESCRIPTION
 //  </c>
 // </h>
-
+#define FINSH_USING_HISTORY
 // <<< end of configuration section >>>
 #endif
 

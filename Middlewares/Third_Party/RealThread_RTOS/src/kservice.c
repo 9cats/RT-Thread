@@ -519,6 +519,21 @@ char *strdup(const char *s) __attribute__((alias("rt_strdup")));
  */
 void rt_show_version(void)
 {
+//  rt_kprintf("                     //\n");
+//  rt_kprintf("         \\\\         //\n");
+//  rt_kprintf("          \\\\       //\n");
+//  rt_kprintf("    ##DDDDDDDDDDDDDDDDDDDDDD##\n");
+//  rt_kprintf("    ## DDDDDDDDDDDDDDDDDDDD ##   ________   ___   ___        ___   ________   ___   ___        ___\n");
+//  rt_kprintf("    ## hh                hh ##   |\\   __  \\ |\\  \\ |\\  \\      |\\  \\ |\\   __  \\ |\\  \\ |\\  \\      |\\  \\\n");
+//  rt_kprintf("    ## hh    //    \\\\    hh ##   \\ \\  \\|\\ /_\\ \\  \\\\ \\  \\     \\ \\  \\\\ \\  \\|\\ /_\\ \\  \\\\ \\  \\     \\ \\  \\\n");
+//  rt_kprintf("    ## hh   //      \\\\   hh ##    \\ \\   __  \\\\ \\  \\\\ \\  \\     \\ \\  \\\\ \\   __  \\\\ \\  \\\\ \\  \\     \\ \\  \\\n");
+//  rt_kprintf("    ## hh                hh ##     \\ \\  \\|\\  \\\\ \\  \\\\ \\  \\____ \\ \\  \\\\ \\  \\|\\  \\\\ \\  \\\\ \\  \\____ \\ \\  \\\n");
+//  rt_kprintf("    ## hh      wwww      hh ##      \\ \\_______\\\\ \\__\\\\ \\_______\\\\ \\__\\\\ \\_______\\\\ \\__\\\\ \\_______\\\\ \\__\\\n");
+//  rt_kprintf("    ## hh                hh ##       \\|_______| \\|__| \\|_______| \\|__| \\|_______| \\|__| \\|_______| \\|__|\\\n");
+//  rt_kprintf("    ## MMMMMMMMMMMMMMMMMMMM ##\n");
+//  rt_kprintf("    ##MMMMMMMMMMMMMMMMMMMMMM##                             Release 2.6.1. Powered by jinkela-core 2.8.9.\n");
+//  rt_kprintf("         \\/            \\/\n");
+
     rt_kprintf("\n \\ | /\n");
     rt_kprintf("- RT -     Thread Operating System\n");
     rt_kprintf(" / | \\     %d.%d.%d build %s\n",

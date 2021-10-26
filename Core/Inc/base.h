@@ -1,5 +1,6 @@
 #ifndef __BASE_H__
 #define __BASE_H__
+#include "main.h"
 
 //LEDøÿ÷∆∫Í∂®“Â
 #define LED0_T   HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin)
