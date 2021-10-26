@@ -19,8 +19,10 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "dma.h"
 #include "i2c.h"
 #include "spi.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -91,10 +93,18 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USART1_UART_Init();
   MX_I2C1_Init();
   MX_SPI1_Init();
+  MX_USART1_UART_Init();
   MX_USART3_UART_Init();
+  MX_TIM8_Init();
+  MX_TIM13_Init();
+  MX_TIM14_Init();
+  MX_TIM10_Init();
+  MX_DMA_Init();
+  MX_SPI3_Init();
+  MX_TIM11_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   delay_init(168);	//delay 函数初始化
   W25QXX_Init();		//W25QXX 初始化
@@ -112,6 +122,7 @@ int main(void)
   {
     break;
     /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -162,6 +173,7 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 
+#ifdef USE_THIS
 /* USER CODE END 4 */
 
 /**
@@ -181,7 +193,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
-
+#endif
+__weak void meanless(void){
   /* USER CODE END Callback 1 */
 }
 
