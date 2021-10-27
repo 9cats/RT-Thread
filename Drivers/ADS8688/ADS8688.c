@@ -37,7 +37,7 @@ uint8_t ADS8688_CONFIG(uint8_t channel,uint8_t range)
     // set all channels ranges(page 57)
     // 0x00 -> 2.5 x VREF
     // 0x01 -> 1.25 x VREF
-    // 0x02 -> 0.625 x VREF
+    // 0x02 -> 0.625 x VREF ¡À2.5
     // 0x05 -> Input range is set to 0 to 2.5 x VREF (for VREF=5 volts, this means 0-10 volts range)
     // 0x06 -> Input range is set to 0 to 1.25 x VREF (for VREF=5 volts, this means 0-5 volts range)
     ads_data[0] = range;

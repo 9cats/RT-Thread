@@ -77,7 +77,7 @@ void SmallTask_Init(void)
 	DataUpdate_Thread = rt_thread_create("dateUpdate",	//线程名
 											Data_AutoUpdate_Tread_Entry,		//线程入口函数
 																RT_NULL,							//线程入口函数参数
-																1024,									//线程分配堆栈大小
+																4096,									//线程分配堆栈大小
 																25,										//线程优先级
 																1);										//线程时间片
 	rt_thread_startup(DataUpdate_Thread);								//线程启动

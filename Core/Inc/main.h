@@ -35,6 +35,7 @@ extern "C" {
 #include "common.h"
 #include "base.h"
 #include "data.h"
+#include "stdio.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

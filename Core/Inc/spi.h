@@ -35,7 +35,8 @@ extern SPI_HandleTypeDef hspi1;
 extern SPI_HandleTypeDef hspi3;
 
 /* USER CODE BEGIN Private defines */
-
+extern DMA_HandleTypeDef hdma_spi3_rx;
+extern DMA_HandleTypeDef hdma_spi3_tx;
 /* USER CODE END Private defines */
 
 void MX_SPI1_Init(void);

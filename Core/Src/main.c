@@ -28,8 +28,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "console.h"
-
 #include "AT24CXX.h"
 #include "W25QXX.h"
 /* USER CODE END Includes */
@@ -105,6 +103,7 @@ int main(void)
   MX_SPI3_Init();
   MX_TIM11_Init();
   MX_TIM2_Init();
+  MX_USART6_UART_Init();
   /* USER CODE BEGIN 2 */
   delay_init(168);	//delay 函数初始化
   W25QXX_Init();		//W25QXX 初始化

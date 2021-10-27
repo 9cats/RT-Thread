@@ -4,9 +4,9 @@
 #include "cmd_queue.h"
 #include "cmd_process.h"
 #include "stdlib.h"
+#include "stdio.h"
+#include "rtthread.h"
 
-extern float goodAmp[2];
-u32 test=50;
 /*! 
  *  \brief  消息处理流程
  *  \param msg 待处理消息
@@ -142,6 +142,30 @@ void NotifyTouchXY(uint8 press, uint16 x, uint16 y, void *userdata)
  */
 void NotifyButton(uint16 screen_id, uint16 control_id, uint8 state, void *userdata)
 {
+	void Cteate_Data_Adjust_Thread(u16 screen_id, u16 control_id);
+	if(state)
+	{
+		if(screen_id == 0 && control_id == 51)
+		{
+			Cteate_Data_Adjust_Thread(0, 51);
+		}
+		if(screen_id == 0 && control_id == 52)
+		{
+			Cteate_Data_Adjust_Thread(0, 52);
+		}
+		if(screen_id == 0 && control_id == 53)
+		{
+			Cteate_Data_Adjust_Thread(0, 53);
+		}
+			if(screen_id == 0 && control_id == 54)
+		{
+			Cteate_Data_Adjust_Thread(0, 54);
+		}
+		if(screen_id == 0 && control_id == 55)
+		{
+			Cteate_Data_Adjust_Thread(0, 55);
+		}
+	}
 }
 
 /*! 
@@ -153,39 +177,34 @@ void NotifyButton(uint16 screen_id, uint16 control_id, uint8 state, void *userda
  */
 void NotifyText(uint16 screen_id, uint16 control_id, uint8 *str, void *userdata)
 {
-//	if(screen_id == 0 && control_id == 1)
-//	{
-//		Svar.ANTI_SHAKE_PHASE = atoi((char*) str);
-//	}
-//	if(screen_id == 0 && control_id == 2)
-//	{
-//		Svar.OFFSET_PHASE    = atoi((char*) str);
-//	}
-//	if(screen_id == 0 && control_id == 3)
-//	{
-//		Svar.a               = atoff((char*) str);
-//	}
-//	if(screen_id == 0 && control_id == 4)
-//	{
-//		Svar.b               = atoff((char*) str);
-//	}
-//	if(screen_id == 0 && control_id == 5)
-//	{
-//		Svar.c               = atoff((char*) str);
-//	}
-//	if(screen_id == 0 && control_id == 6)
-//	{
-//		Svar.d               = atoff((char*) str);
-//	}
-//	if(screen_id == 0 && control_id == 7)
-//	{
-//		Svar.e               = atoff((char*) str);
-//	}
-//	if(screen_id == 0 && control_id == 9)
-//	{
-//		Svar.ADS_AMP         = atoff((char*) str);
-//	}
-//	Svar.e =  (Svar.a*Svar.d-Svar.b*Svar.c)/(Svar.d-Svar.b);
+	if(screen_id == 0 && control_id == 1)
+	{
+		Svar.ADS_AMP = atoi((char*) str);
+	}
+	if(screen_id == 0 && control_id == 2)
+	{
+		Svar.ADS_OFFSET    = atoi((char*) str);
+	}
+	if(screen_id == 0 && control_id == 3)
+	{
+		Svar.ANTI_SHAKE_PHASE = atoff((char*) str);
+	}
+	if(screen_id == 0 && control_id == 4)
+	{
+		Svar.OFFSET_PHASE = atoff((char*) str);
+	}
+	if(screen_id == 0 && control_id == 5)
+	{
+		Svar.A               = atoff((char*) str);
+	}
+	if(screen_id == 0 && control_id == 6)
+	{
+		Svar.B               = atoff((char*) str);
+	}
+	if(screen_id == 0 && control_id == 7)
+	{
+		Svar.C               = atoff((char*) str);
+	}
 }
 
 /*! 
@@ -211,12 +230,12 @@ void NotifySlider(uint16 screen_id, uint16 control_id, uint32 value, void *userd
 	if(screen_id == 0 && control_id == 42)
 	{
 		if(value == 360) value=0;
-//		u32 Phase = 84000000 / 360 / LP_Input_Freqency * value;
-//		if(Phase < 250) Phase = 0;
-//		else Phase = Phase-250;
-//		Svar.OFFSET_PHASE = Phase;
+		u32 Phase = 84000000 / 360 / 1000 * value;
+		if(Phase < 250) Phase = 0;
+		else Phase = Phase-250;
+		Svar.OFFSET_PHASE = Phase;
 
-//		SetTextValue(0, 2, Str("%ld",Svar.OFFSET_PHASE));
+		SetTextValue(0, 4, Str("%ld",Svar.OFFSET_PHASE));
 	}
 }
 

@@ -82,7 +82,7 @@ u8 KEY_Scan(u8 mode) {
 	if (mode)
 		key_up = 1; //持连按
 	if (key_up && (KEY0 == 0 || KEY1 == 0)) {
-		HAL_Delay(10); //去抖动
+		delay_ms(10); //去抖动
 		key_up = 0;
 		if      (KEY0 == 0)
 			return KEY0_PRES;
@@ -99,8 +99,8 @@ u8 KEY_Scan(u8 mode) {
  */
 
 //选择对应的储存方式
-#define USE_W25QXX
-//#define USE_AT24CXX
+//#define USE_W25QXX
+#define USE_AT24CXX
 
 //储存地址选择
 u32 SAVE_ADDR = 0x00; //储存地址起始

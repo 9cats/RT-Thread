@@ -33,6 +33,7 @@ void DATA_UPDATE(void);
  *  \param format
  *  \param data  要被转换的数据
  */
+extern u8 Str_Buf[];
 #define Str(format, data) (sprintf((char*)Str_Buf,format, data), Str_Buf)
 
 #endif
