@@ -46,18 +46,18 @@ void Intserve(void)
 void IntReset(void) 
 { 
 	AD9959_Reset_L;
-	HAL_Delay(1);
+	delay_ms(1);
 	AD9959_Reset_H;
-	HAL_Delay(30);
+	delay_ms(30);
 	AD9959_Reset_L; 
 }
 //AD9959更新数据 
 void IO_Update(void) 
 {
 	AD9959_UPDATE_L; 
-	HAL_Delay(2);
+	delay_ms(2);
 	AD9959_UPDATE_H; 
-	HAL_Delay(4);
+	delay_ms(4);
 	AD9959_UPDATE_L; 
 }
 /*-------------------------------------------- 
@@ -216,7 +216,7 @@ void AD9959_Init(void)
 	
 	WriteData_AD9959(FR1_ADD,3,FR1_DATA,1);//写功能寄存器1 
 	
-	HAL_Delay(200);
+	delay_ms(200);
 }
 
 void AD9959_Config_Amp(u8 ch, float nmV)

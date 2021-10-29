@@ -1,6 +1,7 @@
 #include "rtthread.h"
 #include "main.h"
 #include "ADS8688.h"
+#include "AD9959.h"
 #include "tim.h"
 #include "cmd_process.h"
 #include "output.h"
@@ -28,6 +29,7 @@ float is_Smooth(float* data, u32 len)
 void Main_Thread_Entry(void *parameter)	{
 
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+	AD9959_Init();
 	ADS8688_CONFIG(0x01, 0x02);
 	TFT_Init();
 

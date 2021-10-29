@@ -6,6 +6,7 @@
 #include "stdlib.h"
 #include "stdio.h"
 #include "rtthread.h"
+#include "cmd_thread.h"
 
 /*! 
  *  \brief  消息处理流程
@@ -147,23 +148,23 @@ void NotifyButton(uint16 screen_id, uint16 control_id, uint8 state, void *userda
 	{
 		if(screen_id == 0 && control_id == 51)
 		{
-			Cteate_Data_Adjust_Thread(0, 51);
+			Data_Adjust("A");
 		}
 		if(screen_id == 0 && control_id == 52)
 		{
-			Cteate_Data_Adjust_Thread(0, 52);
+			Data_Adjust("B");
 		}
 		if(screen_id == 0 && control_id == 53)
 		{
-			Cteate_Data_Adjust_Thread(0, 53);
+			Data_Adjust("C");
 		}
 			if(screen_id == 0 && control_id == 54)
 		{
-			Cteate_Data_Adjust_Thread(0, 54);
+			Data_Adjust("ADS_OFFSET");
 		}
 		if(screen_id == 0 && control_id == 55)
 		{
-			Cteate_Data_Adjust_Thread(0, 55);
+			Data_Adjust("AUTO");
 		}
 	}
 }

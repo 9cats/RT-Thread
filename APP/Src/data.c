@@ -22,12 +22,3 @@ u32   ADS8688_COUNT     = 0;
 u16 ADS8688_BUF [ADS8688_BUF_MAX] = {0};
 u16 ADS8688_BUF1[ADS8688_BUF_MAX] = {0};
 
-
-/*!
- *  \brief  RT-Thread 相关信号量等的初始化
- */
-void RT_Thread_Data_Init(void)
-{
-	LED0Toggle_Sem = rt_sem_create("LED0_Toggle", 5, RT_IPC_FLAG_PRIO);
-	LED1Toggle_Sem = rt_sem_create("LED1_Toggle", 5, RT_IPC_FLAG_PRIO);
-}
