@@ -31,10 +31,14 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	extern TIM_HandleTypeDef htim7;
 	if (htim == &htim7) HAL_IncTick(); // RT-Thread 系统时钟
 	if (htim == &htim14) {
+		/* 判断是否采样超时 */
+		if(ADS8688_Busy)	Error_Handler();
+		else							ADS8688_Busy = YES;
+
 		V_recv = *(u16*)(ADS8688_RxBuf+2);				//转换上次的采样值
 		ADS8688_Start_DMA(ADS8688_RxBuf);	//ADS8688开启DMA采样
 
-		arm_biquad_cascade_df1_f32(&iir_S, &V_recv, &V_iir_noScale, 1); // IIR实时滤波
+		//arm_biquad_cascade_df1_f32(&iir_S, &V_recv, &V_iir_noScale, 1); // IIR实时滤波
 		//arm_fir_f32(&fir, &V_recv, &V_fir, 1);                          // FIR实时滤波
 		if(ADS8688_STA)
 		{
