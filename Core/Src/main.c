@@ -30,6 +30,8 @@
 /* USER CODE BEGIN Includes */
 #include "AT24CXX.h"
 #include "W25QXX.h"
+#include "esp8266.h"
+#include "ADS8688.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -76,7 +78,8 @@ int main(void)
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+
+	HAL_Init();
 
   /* USER CODE BEGIN Init */
 
@@ -95,20 +98,17 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   MX_USART3_UART_Init();
-  MX_TIM8_Init();
-  MX_TIM13_Init();
-  MX_TIM14_Init();
-  MX_TIM10_Init();
   MX_DMA_Init();
   MX_SPI3_Init();
-  MX_TIM11_Init();
-  MX_TIM2_Init();
   MX_USART6_UART_Init();
+  MX_USART2_UART_Init();
+  MX_TIM14_Init();
   /* USER CODE BEGIN 2 */
   delay_init(168);	//delay 函数初始化
   W25QXX_Init();		//W25QXX 初始化
   DATA_INIT();			//可储存变量初始化
 
+  //ESP8266_Init();
   extern void RT_Thread_Data_Init(void);
   extern void RT_Thread_Threads_Init(void);
   RT_Thread_Data_Init();
@@ -119,6 +119,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    rt_kprintf("\rDevice initialization completed\n");
     break;
     /* USER CODE END WHILE */
 

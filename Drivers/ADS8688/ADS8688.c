@@ -3,8 +3,8 @@
 #include "spi.h"
 #include "tim.h"
 
-#define ADS8688_CS_L __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 0xffffffff);__HAL_TIM_SET_COUNTER(&htim2, htim2.Instance->ARR)
-#define ADS8688_CS_H __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 0x00000000);__HAL_TIM_SET_COUNTER(&htim2, htim2.Instance->ARR)
+//#define ADS8688_CS_L __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 0xffffffff);__HAL_TIM_SET_COUNTER(&htim2, htim2.Instance->ARR)
+//#define ADS8688_CS_H __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 0x00000000);__HAL_TIM_SET_COUNTER(&htim2, htim2.Instance->ARR)
 
 ADS8688 ads8688;
 /*
@@ -18,6 +18,7 @@ uint8_t ADS8688_CONFIG(uint8_t channel,uint8_t range)
     ads->spiHandle 		= &hspi3;
     ads->csPinBank 	= ADS8688_CS_GPIO_Port;
     ads->csPin 		= ADS8688_CS_Pin;
+
 
     uint8_t ads_data[2] = {0};
     uint8_t state = 0;
@@ -151,6 +152,12 @@ HAL_StatusTypeDef ADS_Read_All_Raw(ADS8688 *ads, uint16_t *data) {
 	return ret;
 }
 
+HAL_StatusTypeDef ADS8688_Start_DMA(u8* rxbuf)
+{
+	u8 txbuf[4] = {0};
+	ADS8688_CS_L;
+	return HAL_SPI_TransmitReceive_DMA(&hspi3, txbuf, rxbuf, 2);
+}
 
 
 

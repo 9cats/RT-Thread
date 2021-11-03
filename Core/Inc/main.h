@@ -61,8 +61,6 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define LOCK_PHASE_OUT_Pin GPIO_PIN_1
-#define LOCK_PHASE_OUT_GPIO_Port GPIOF
 #define KEY0_Pin GPIO_PIN_6
 #define KEY0_GPIO_Port GPIOF
 #define KEY1_Pin GPIO_PIN_7
@@ -97,8 +95,6 @@ void Error_Handler(void);
 #define AD9959_SD2_GPIO_Port GPIOG
 #define W25QXX_CS_Pin GPIO_PIN_8
 #define W25QXX_CS_GPIO_Port GPIOG
-#define TIM8_CH4_Pin GPIO_PIN_9
-#define TIM8_CH4_GPIO_Port GPIOC
 #define ADS8688_CS_Pin GPIO_PIN_15
 #define ADS8688_CS_GPIO_Port GPIOA
 #define ADS8688_SCK_Pin GPIO_PIN_10

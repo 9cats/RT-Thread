@@ -26,63 +26,21 @@ float is_Smooth(float* data, u32 len)
 }
 
 
-void Main_Thread_Entry(void *parameter)	{
+void Main_Thread_Entry(void *parameter)
+{
+	//AD9959_Init();
+	//TFT_Init();
+	ADS8688_CONFIG(0x01, 0x06);
+	HAL_TIM_Base_Start_IT(&htim14);
 
-	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-	AD9959_Init();
-	ADS8688_CONFIG(0x01, 0x02);
-	TFT_Init();
-
-	SetTextValue(0, 1, Str("%f", Svar.ADS_AMP));
-	SetTextValue(0, 2, Str("%f",Svar.ADS_OFFSET));
-	SetTextValue(0, 3, Str("%d",Svar.ANTI_SHAKE_PHASE));
-	SetTextValue(0, 4, Str("%ld",Svar.OFFSET_PHASE));
-	SetTextValue(0, 5, Str("%f",Svar.A));
-	SetTextValue(0, 6, Str("%f",Svar.B));
-	SetTextValue(0, 7, Str("%f",Svar.C));
-
-	//锁相所用定时器
-  __HAL_TIM_ENABLE_IT(&htim10 , TIM_IT_UPDATE);
-  __HAL_TIM_ENABLE_IT(&htim11 , TIM_IT_UPDATE);
-  __HAL_TIM_ENABLE_IT(&htim13, TIM_IT_UPDATE);
-  __HAL_TIM_ENABLE_IT(&htim14, TIM_IT_UPDATE);
-  HAL_TIM_IC_Start_IT(&htim8 , TIM_CHANNEL_4);
-  HAL_TIM_IC_Start_IT(&htim8 , TIM_CHANNEL_3);
-
-  extern void arm_iir_init(void);
-  arm_iir_init();
+  //extern void arm_iir_init(void);
+  //arm_iir_init();
   //extern void arm_fir_init(void);
   //arm_fir_init();
 
   //ADS采样用定时器
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, htim2.Instance->ARR-2);
-  __HAL_TIM_ENABLE_IT(&htim2, TIM_IT_UPDATE);
-
 	for(;;){
-		float mean_result;
-		u16 i;
-
-		for(i=0; i<800; i++)
-		{
-			mean[i] = V_iir;
-			rt_thread_mdelay(1);
-		}
-
-		mean_result = is_Smooth(mean, 800);
-
-		SetTextValue(0, 31, Str("%.3f", mean_result));
-		if(mean_result < 10000) {
-			if( mean_result < Svar.B )
-			{
-				SetTextValue(0, 32, Str("%.3f", (mean_result - Svar.A)*90/(Svar.B - Svar.A) + 10 ));
-				//SetTextValue(0, 32, Str("%.3f", ((mean_result - Svar.A)*(Svar.B - Svar.A)/54+6) * 10 / 6 ));
-			}
-			else
-			{
-				SetTextValue(0, 32, Str("%.3f", (mean_result - Svar.B)*900/(Svar.C - Svar.B) + 100));
-				//SetTextValue(0, 32, Str("%.3f", ((mean_result - Svar.B)*(Svar.C - Svar.B)/540+60) * 10 / 6));
-			}
-		}
+		delay_ms(10);
 	}
 }
 
@@ -97,7 +55,7 @@ void RT_Thread_Threads_Init(void) {
 																	Main_Thread_Entry,		//线程入口函数
 																	RT_NULL,							//线程入口函数参数
 																	9120,									//线程分配堆栈大小
-																	18,										//线程优先级
+																	17,										//线程优先级
 																	1);										//线程时间片
 	rt_thread_startup(Main_Thread);												//线程启动
 }

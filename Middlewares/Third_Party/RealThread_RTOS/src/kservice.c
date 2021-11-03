@@ -519,6 +519,7 @@ char *strdup(const char *s) __attribute__((alias("rt_strdup")));
  */
 void rt_show_version(void)
 {
+//  bili_bili
 //  rt_kprintf("                     //\n");
 //  rt_kprintf("         \\\\         //\n");
 //  rt_kprintf("          \\\\       //\n");

@@ -15,59 +15,10 @@
  */
 void Data_Adjust_Entry(char *data)
 {
-	float* buf = rt_malloc(800*4);	//BUF分配空间
-	float mean;											//平均值
-	u16 i;
-
 	if (!rt_strcmp(data, "ADS_OFFSET"))
 	{
-		for(i=0; i<800; i++)
-		{
-			buf[i] = V_recv;
-			rt_thread_mdelay(1);
-		}
-		arm_mean_f32(buf , 800, &mean);
-		Svar.ADS_OFFSET = mean;
-		SetTextValue(0, 2, Str("%f",Svar.ADS_OFFSET));
+
 	}
-
-	else if (!rt_strcmp(data, "A"))
-	{
-		for(i=0; i<800; i++)
-		{
-			buf[i] = V_iir;
-			rt_thread_mdelay(1);
-		}
-		arm_mean_f32(buf , 800, &mean);
-		Svar.A = mean;
-		SetTextValue(0, 5, Str("%f",Svar.A));
-	}
-
-	else if (!rt_strcmp(data, "B"))
-	{
-		for(i=0; i<800; i++)
-		{
-			buf[i] = V_iir;
-			rt_thread_mdelay(1);
-		}
-		arm_mean_f32(buf , 800, &mean);
-		Svar.B = mean;
-		SetTextValue(0, 6, Str("%f",Svar.B));
-	}
-
-	else if (!rt_strcmp(data, "C"))
-	{
-		for(i=0; i<800; i++)
-		{
-			buf[i] = V_iir;
-			rt_thread_mdelay(1);
-		}
-		arm_mean_f32(buf , 800, &mean);
-		Svar.C = mean;
-		SetTextValue(0, 7, Str("%f",Svar.C));
-	}
-
-
   //如果在ccmram则释放空间
   if(IN_CCMRAM(data)) rt_free(data);
 }
@@ -99,6 +50,7 @@ void adjust(int argc, char **argv)
   char *cmd = rt_malloc(40);
   u8 cmd_len = rt_strlen(argv[1]);
   rt_strncpy(cmd, argv[1], cmd_len);
+  cmd[cmd_len] = 0;
 
 	rt_thread_startup(
 			rt_thread_create("adjustData",			//线程名

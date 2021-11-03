@@ -5,8 +5,8 @@
 #include "stm32f4xx_hal.h"
 #include "main.h"
 
-//#define SAMPLE_BEGIN HAL_GPIO_WritePin(ADS8688_CS_GPIO_Port, ADS8688_CS_Pin, GPIO_PIN_RESET);
-//#define SAMPLE_END   HAL_GPIO_WritePin(ADS8688_CS_GPIO_Port, ADS8688_CS_Pin, GPIO_PIN_SET);
+#define ADS8688_CS_L HAL_GPIO_WritePin(ADS8688_CS_GPIO_Port, ADS8688_CS_Pin, GPIO_PIN_RESET)
+#define ADS8688_CS_H HAL_GPIO_WritePin(ADS8688_CS_GPIO_Port, ADS8688_CS_Pin, GPIO_PIN_SET  )
 
 // datasheet link
 // https://www.ti.com/lit/ds/symlink/ads8668.pdf?ts=1620233637463&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FADS8668
@@ -88,5 +88,5 @@ HAL_StatusTypeDef ADS_Cmd_Write(ADS8688 *ads, uint8_t cmd, uint8_t *data);
  */
 
 HAL_StatusTypeDef ADS_Read_All_Raw(ADS8688 *ads, uint16_t *data);
-
+HAL_StatusTypeDef ADS8688_Start_DMA(u8* rxbuf);
 #endif

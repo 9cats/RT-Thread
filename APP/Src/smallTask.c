@@ -61,7 +61,7 @@ void SmallTask_Init(void)
 																			 LED0Toggle_Thread_Entry, //线程入口函数
 																			 RT_NULL,									//线程入口函数参数
 																			 220,											//线程分配堆栈大小
-																			 18,											//线程优先级
+																			 15,											//线程优先级
 																			 1);											//线程时间片
 	rt_thread_startup(LED0Toggle_Thread);													//线程启动
 
@@ -70,7 +70,7 @@ void SmallTask_Init(void)
 																			 LED1Toggle_Thread_Entry, //线程入口函数
 																			 RT_NULL,									//线程入口函数参数
 																			 220,											//线程分配堆栈大小
-																			 18,											//线程优先级
+																			 15,											//线程优先级
 																			 1);											//线程时间片
 	rt_thread_startup(LED1Toggle_Thread);													//线程启动
 

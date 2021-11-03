@@ -65,6 +65,7 @@
 									<listOptionValue builtIn="false" value="../Drivers/W25QXX"/>
 									<listOptionValue builtIn="false" value="../Drivers/ADS8688"/>
 									<listOptionValue builtIn="false" value="../Drivers/AD9959"/>
+									<listOptionValue builtIn="false" value="../Drivers/ESP8266"/>
 									<listOptionValue builtIn="false" value="../Drivers/TFT/Inc"/>
 									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/RealThread_RTOS/finsh"/>
 									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/RealThread_RTOS/include"/>
