@@ -19,40 +19,39 @@ float amp  = 400;
  */
 void Debug_Entry(char *cmd)
 {
-	//显示第一次
+	/* 输出刚初始化时的采样数 */
 	if (!rt_strcmp(cmd, "show"))
 	{
 		u32 i = 0;
 		for(i=0;i<ADS8688_COUNT;i++)
 		{
-
 			OutData[0] = ADS8688_BUF[i];
+			OutData[1] = ADS8688_BUF1[i]*ScaleValue;//IIR-BUF
+			//OutData[1] = ADS8688_BUF[i];//FIR-BUF
 			OutPut_Data();
 		}
-		//ADS8688_COUNT = 0;
-		//ADS8688_STA = YES;
 	}
 
-	//开启采样显示
+	/* 开启一次采样，并输出到示波器 */
 	if (!rt_strcmp(cmd, "start"))
 	{
 		u32 i = 0;
-		//清空之前的采样值
+		/* 开启采样 */
 		ADS8688_COUNT = 0;
 		ADS8688_STA = YES;
-		//等待采样完毕
+		/* 等待采样完毕 */
 		while(ADS8688_STA) delay_ms(10);
-		//输出到虚拟示波器
+		/* 输出到虚拟示波器 */
 		for(i=0;i<ADS8688_COUNT;i++)
 		{
 			OutData[0] = ADS8688_BUF[i];
+			OutData[1] = ADS8688_BUF1[i]*ScaleValue;//IIR-BUF
+			//OutData[1] = ADS8688_BUF[i];//FIR-BUF
 			OutPut_Data();
 		}
-		//开启下一次接收
-		//ADS8688_COUNT = 0;
-		//ADS8688_STA = YES;
 	}
 
+	/* 将上次的采样值经行FFT变换 */
 	if (!rt_strcmp(cmd, "fft"))
 	{
 		arm_rfft_fast_instance_f32 fft_S;
@@ -63,17 +62,17 @@ void Debug_Entry(char *cmd)
 		float* FFT_OUTPUT      = rt_malloc(FFT_NUM*4);
 		float* FFT_OUTPUT_REAL = rt_malloc(FFT_NUM*4);
 
-		//将采样数据转换数值，放入FFT输入数组内
-		for(i=0;i<FFT_NUM;i++) FFT_INPUT[i] = (float)ADS8688_BUF[i]/1500;
+		/* 将采样数据转换数值，放入FFT输入数组内 */
+		for(i=0;i<FFT_NUM;i++)
+			FFT_INPUT[i] = (float)ADS8688_BUF[i]/1500;
 
 		arm_rfft_fast_init_f32(&fft_S, FFT_NUM);								//FFT初始化
 		arm_rfft_fast_f32(&fft_S,FFT_INPUT,FFT_OUTPUT,0);				//FFT
 		arm_cmplx_mag_f32(FFT_OUTPUT,FFT_OUTPUT_REAL,FFT_NUM);	//求模
 
-		//输出数据到虚拟示波器
-		//注： Real_Point =  采样率 / FFT数 * 待采波频率
+		/* 输出到虚拟示波器 */
 		for(i=0;i<FFT_NUM;i++)
-		{
+		{/* 注： Real_Point =  采样率 / FFT数 * 待采波频率 */
 			OutData[0] = ADS8688_BUF[i];
 			OutData[1] = FFT_INPUT[i];
 			OutData[2] = FFT_OUTPUT[i];
@@ -84,7 +83,7 @@ void Debug_Entry(char *cmd)
 			OutPut_Data();
 		}
 
-		//释放空间
+		//释放内存空间
 		rt_free(FFT_INPUT);
 		rt_free(FFT_OUTPUT);
 		rt_free(FFT_OUTPUT_REAL);

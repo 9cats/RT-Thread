@@ -23,7 +23,7 @@ u8  ADS8688_Busy         = NO;
 float V_recv;					//ADS8688接收值
 float V_iir_noScale ;	//IIR滤波后的结果(无放缩)
 //float V_mean;					//ADS8688
-//float V_fir ;					//FIR滤波后的结果
+float V_fir ;					//FIR滤波后的结果
 //--------------------------------------------------------
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
@@ -34,9 +34,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		V_recv = *(u16*)(ADS8688_RxBuf+2);				//转换上次的采样值
 		ADS8688_Start_DMA(ADS8688_RxBuf);	//ADS8688开启DMA采样
 
+		arm_biquad_cascade_df1_f32(&iir_S, &V_recv, &V_iir_noScale, 1); // IIR实时滤波
+		//arm_fir_f32(&fir, &V_recv, &V_fir, 1);                          // FIR实时滤波
 		if(ADS8688_STA)
 		{
-			ADS8688_BUF[ADS8688_COUNT] = *(u16*)(ADS8688_RxBuf+2)/2;
+			ADS8688_BUF [ADS8688_COUNT] = *(u16*)(ADS8688_RxBuf+2)/2;
+			ADS8688_BUF1[ADS8688_COUNT] = V_iir_noScale; //IIR-BUF
+			//ADS8688_BUF1[ADS8688_COUNT] = V_fir; //FIR-BUF
 			if(++ADS8688_COUNT == 5000) ADS8688_STA = NO;
 		}
 	};

@@ -5,6 +5,7 @@
 #include "tim.h"
 #include "cmd_process.h"
 #include "output.h"
+#include "cmd_thread.h"
 
 static rt_thread_t Main_Thread = RT_NULL; //主线程任务
 float mean[800];
@@ -31,14 +32,15 @@ void Main_Thread_Entry(void *parameter)
 	//AD9959_Init();
 	//TFT_Init();
 	ADS8688_CONFIG(0x01, 0x06);
-	HAL_TIM_Base_Start_IT(&htim14);
 
-  //extern void arm_iir_init(void);
-  //arm_iir_init();
-  //extern void arm_fir_init(void);
-  //arm_fir_init();
+	delay_ms(1000);
+  extern void arm_iir_init(void);
+  arm_iir_init();
+  extern void arm_fir_init(void);
+  arm_fir_init();
 
   //ADS采样用定时器
+	HAL_TIM_Base_Start_IT(&htim14);
 	for(;;){
 		delay_ms(10);
 	}

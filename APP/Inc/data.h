@@ -23,8 +23,8 @@ extern rt_sem_t LED1Toggle_Sem; //LED1·­×ªÐÅºÅÁ¿
 //ADS8688
 extern u8  ADS8688_STA  ;
 extern u32 ADS8688_COUNT;
-extern u16 ADS8688_BUF[];
-extern u16 ADS8688_BUF1[];
+extern float ADS8688_BUF[];
+extern float ADS8688_BUF1[];
 
 
 
